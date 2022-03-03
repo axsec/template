@@ -27,7 +27,8 @@ packageJSON.devDependencies = Object.assign(packageJSON.devDependencies, {
   "@rollup/plugin-typescript": "^8.0.0",
   "typescript": "^4.0.0",
   "tslib": "^2.0.0",
-  "@tsconfig/svelte": "^2.0.0"
+  "@tsconfig/svelte": "^2.0.0",
+  "@types/chrome": "^0.0.179"
 })
 
 // Add script for checking
@@ -48,6 +49,7 @@ const appSveltePath = path.join(projectRoot, "src", "App.svelte")
 let appFile = fs.readFileSync(appSveltePath, "utf8")
 appFile = appFile.replace("<script>", '<script lang="ts">')
 appFile = appFile.replace("export let name;", 'export let name: string;')
+appFile = appFile.replace("export let url;", 'export let url: string;')
 fs.writeFileSync(appSveltePath, appFile)
 
 // Edit rollup config

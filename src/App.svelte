@@ -1,10 +1,22 @@
 <script>
 	export let name;
+	export let url;
+
+	onMount(async () => {
+		const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+		url = tab.url;
+	})
 </script>
 
 <main>
 	<h1>Hello {name}!</h1>
 	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+
+	{#if url}
+		The current tab URL is: {url}
+	{:else}
+		Loading tab url...
+	{/if}
 </main>
 
 <style>
